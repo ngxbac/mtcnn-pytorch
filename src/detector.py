@@ -8,7 +8,10 @@ from .first_stage import run_first_stage
 
 def detect_faces(image, min_face_size=20.0,
                  thresholds=[0.6, 0.7, 0.8],
-                 nms_thresholds=[0.7, 0.7, 0.7]):
+                 nms_thresholds=[0.7, 0.7, 0.7],
+                 pretrain_pnet='src/weights/pnet.npy',
+                 pretrain_rnet='src/weights/rnet.npy',
+                 pretrain_onet='src/weights/onet.npy'):
     """
     Arguments:
         image: an instance of PIL.Image.
@@ -22,9 +25,9 @@ def detect_faces(image, min_face_size=20.0,
     """
 
     # LOAD MODELS
-    pnet = PNet()
-    rnet = RNet()
-    onet = ONet()
+    pnet = PNet(pretrain_pnet)
+    rnet = RNet(pretrain_rnet)
+    onet = ONet(pretrain_onet)
     onet.eval()
 
     # BUILD AN IMAGE PYRAMID
